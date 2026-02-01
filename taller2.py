@@ -16,6 +16,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
+from sklearn.datasets import make_classification
 
 #Keras
 from tensorflow import keras
@@ -26,6 +27,11 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.models import load_model
 from tensorflow.keras.callbacks import EarlyStopping
 import xgboost as xgb
+
+
+X, y = make_classification(n_samples=100, n_features=4,
+                           n_informative=2, n_redundant=0,
+                           random_state=0, shuffle=False)
 
 def entrena_stumps(X,y,D):
   stump = DecisionTreeClassifier(max_depth=1,max_leaf_nodes=2,random_state=12)
@@ -120,4 +126,11 @@ def adaboost_best(X,y,T):
     D = D/np.sum(D)
   return {"modelos":stumps,"alphas":alpha,"precision":accuracy,"error":error,"error_pes":error_pes,"D":D_total}
 print("Adaboost implementation functions")
+
+clf = RandomForestClassifier(random_state=12,bootstrap=True,n_estimators=499,min_samples_leaf=2)
+clf.fit(X, y)
+print(clf.predict([[0, 0, 0, 0]]))
+
+
+
 
