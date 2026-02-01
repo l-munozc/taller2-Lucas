@@ -1,4 +1,3 @@
-
 # ---------- IMPORTS ----------
 #General
 import tensorflow
@@ -127,10 +126,15 @@ def adaboost_best(X,y,T):
   return {"modelos":stumps,"alphas":alpha,"precision":accuracy,"error":error,"error_pes":error_pes,"D":D_total}
 print("Adaboost implementation functions")
 
+
+
 clf = RandomForestClassifier(random_state=12,bootstrap=True,n_estimators=499,min_samples_leaf=2)
 clf.fit(X, y)
 print(clf.predict([[0, 0, 0, 0]]))
 
+xg_clf = xgb.XGBClassifier(n_estimators = 461,eta = 0.005 ,use_label_encoder=False, eval_metric='logloss', random_state=12, n_jobs=-1,tree_method="hist")
+xg_clf.fit(X, y)
+print(xg_clf.predict([[0, 0, 0, 0]]))
 
 
 
