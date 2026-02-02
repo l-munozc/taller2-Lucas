@@ -32,6 +32,14 @@ X, y = make_classification(n_samples=100, n_features=4,
                            n_informative=2, n_redundant=0,
                            random_state=0, shuffle=False)
 
+#Cambio para taller de analítica
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.3, random_state=12, stratify=y)
+
+T = 20
+ada = adaboost(X_train, y_train, X_val, y_val, T)
+ada_metrics = adaboost_predict(ada["modelos"], ada["alphas"], X_train, y_train, X_val, y_val, ada["D"])
+
 def entrena_stumps(X,y,D):
   stump = DecisionTreeClassifier(max_depth=1,max_leaf_nodes=2,random_state=12)
   stump.fit(X,y,sample_weight=D)
